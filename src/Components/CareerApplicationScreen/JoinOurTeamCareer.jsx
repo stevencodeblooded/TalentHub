@@ -31,18 +31,33 @@ const JoinOurTeamCareer = () => {
   const handleFormSubmission = async (e) => {
     e.preventDefault()
 
+    const formData = new FormData();
+    formData.append('fullname', applicationData.fullname);
+    formData.append('email', applicationData.email);
+    formData.append('message', applicationData.message);
+    formData.append('resume', applicationData.resume);
+
     try {
-      const res = await fetch('https://uncovered-harmless-angelfish.glitch.me/application', {
+      const res = await fetch('http://localhost:5000/api/users/application', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      body: JSON.stringify(applicationData)
+      body: formData
       })
-      const data = await res.json()
-      toast.success(data.message)
+      
+      if (res.ok) {
+        const data = await res.json()
+        toast.success(data.message)
+        setApplicationData({
+          fullname: '',
+          email: '',
+          message: '',
+          resume: null
+        })
+      } else {
+        const err = await res.json()
+        toast.error(err.message)
+      }
     } catch (error) {
-      toast.error(data.message || error)
+      console.log(error)
     }
   }
   
@@ -52,9 +67,9 @@ const JoinOurTeamCareer = () => {
         <div className="max-w-xl mx-auto">
           <h1 className='text-4xl leading-snug text-center mb-6 font-semibold text-transparent bg-gradient-to-r from-green-500 to-black bg-clip-text'>Join the team</h1>
           <form onSubmit={handleFormSubmission} className="flex flex-col gap-3">
-            <input type="text" name="fullname" value={applicationData.fullname} onChange={handleChange} placeholder="Full name" className="rounded-md p-2 bg-green-50 text-sm" />
-            <input type="email" name="email" value={applicationData.email} onChange={handleChange} placeholder="Email" className="rounded-md p-2 bg-green-50 text-sm"/>
-            <textarea name="message" value={applicationData.message} onChange={handleChange} rows="4" placeholder="Write to us" className="rounded-md p-2 bg-green-50 text-sm" />
+            <input type="text" name="fullname" value={applicationData.fullname} onChange={handleChange} placeholder="Full name" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
+            <input type="email" name="email" value={applicationData.email} onChange={handleChange} placeholder="Email" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm"/>
+            <textarea name="message" value={applicationData.message} onChange={handleChange} rows="4" placeholder="Write to us" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
             <input type="file" name="resume" onChange={handleChange} placeholder="Resume (Optional)" className="rounded-md p-2 bg-green-50 text-sm" />
             <p className=" text-xs text-center">
               By filling in this form you agree to the processing of your personal data by Exitek. 

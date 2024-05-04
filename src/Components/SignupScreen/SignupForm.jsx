@@ -26,16 +26,22 @@ const SignupForm = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch('https://uncovered-harmless-angelfish.glitch.me', {
+      const res = await fetch('http://localhost:5000/api/users', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/data'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       })
-      const data = await res.json()
-      navigate('/login')
-      toast.success(data.message)
+
+      if (res.ok) {
+        const data = await res.json()
+        navigate('/login')
+        toast.success(data.message)
+      } else {
+        const error = await res.json()
+        toast.error(error.message)
+      }
     } catch (error) {
       toast.error(data.message || error)
     }

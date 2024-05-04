@@ -23,15 +23,31 @@ const LetsTalk = () => {
   const handleFormSubmission = async (e) => {
     e.preventDefault()
 
-    const res = await fetch('https://uncovered-harmless-angelfish.glitch.me/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }, 
-      body: JSON.stringify(contactFormData)
-    })
-    const data = await res.json()
-    toast.success(data.message)
+    try {
+      const res = await fetch('http://localhost:5000/api/users/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify(contactFormData)
+      })
+  
+      if(res.ok) {
+        const data = await res.json()
+        toast.success(data.message)
+        setContactFormData({
+          name: '',
+          email: '',
+          message: ''
+        })
+      } else {
+        const err = await res.json()
+        toast.error(err.message)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   }
   
   return (

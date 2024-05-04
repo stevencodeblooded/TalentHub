@@ -2,6 +2,7 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
     const navigate = useNavigate()
@@ -24,18 +25,23 @@ const LoginForm = () => {
         e.preventDefault()
 
         try {
-          const res = await fetch('https://uncovered-harmless-angelfish.glitch.me/login', {
+          const res = await fetch('http://localhost:5000/api/users/login', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/data'
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginFormData)
           })
-          const data = await res.json()
-          navigate('/')
-          toast.success(data.message)
+          if (res.ok) {
+            const data = await res.json()
+            navigate('/')
+            toast.success(data.message)
+          } else {
+            const error = await res.json()
+            toast.error(error.message)
+          }
         } catch (error) {
-          toast.error(data.message || error)
+          toast.error(error)
         }
     }
   return (
