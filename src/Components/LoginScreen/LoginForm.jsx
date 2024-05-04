@@ -1,9 +1,10 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+    const navigate = useNavigate()
     const [loginFormData, setLoginFormData] = useState({
         email: '',
         password: ''
@@ -19,15 +20,29 @@ const LoginForm = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(loginFormData);
+
+        try {
+          const res = await fetch('https://uncovered-harmless-angelfish.glitch.me/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/data'
+            },
+            body: JSON.stringify(loginFormData)
+          })
+          const data = await res.json()
+          navigate('/')
+          toast.success(data.message)
+        } catch (error) {
+          toast.error(data.message || error)
+        }
     }
   return (
     <div>
       <section  className=" max-w-xl mx-auto px-3">
         <div className=" my-24">
-          <h2 className="text-transparent py-3 bg-gradient-to-r from-black to-green-500 bg-clip-text text-4xl text-center font-semibold mb-8 z-50">Welcome Back!</h2>
+          <h2 data-aos="zoom-in" data-aos-duration="1500" className="text-transparent py-3 bg-gradient-to-r from-black to-green-500 bg-clip-text text-4xl text-center font-semibold mb-8 z-50">Welcome Back!</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <input type="email" name="email" value={loginFormData.email} onChange={handleChange} placeholder="Email" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
               <input type="password" name="password" placeholder="Password" value={loginFormData.password} onChange={handleChange} className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />

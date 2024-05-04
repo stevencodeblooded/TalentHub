@@ -1,6 +1,7 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 const LetsTalk = () => {
   const [contactFormData, setContactFormData] = useState({
@@ -19,9 +20,18 @@ const LetsTalk = () => {
     })
   }
 
-  const handleFormSubmission = (e) => {
+  const handleFormSubmission = async (e) => {
     e.preventDefault()
-    console.log(contactFormData);
+
+    const res = await fetch('https://uncovered-harmless-angelfish.glitch.me/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify(contactFormData)
+    })
+    const data = await res.json()
+    toast.success(data.message)
   }
   
   return (
@@ -34,7 +44,7 @@ const LetsTalk = () => {
               <p>Got a question about Talent Hub?</p>
               <p className="text-sm">Let us know.</p>
             </div>
-            <div className="w-full md:w-1/2 px-10 md:px-0">
+            <div className="w-full md:w-1/2 md:px-0">
               <form onSubmit={handleFormSubmission} className="flex flex-col gap-3">
                 <input type="text" name="name" value={contactFormData.name} onChange={handleChange} placeholder="Name" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
                 <input type="email" name="email" value={contactFormData.email} onChange={handleChange} placeholder="Email" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />

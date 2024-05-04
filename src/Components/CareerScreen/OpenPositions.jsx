@@ -13,7 +13,7 @@ const OpenPositions = () => {
     <div className="py-20 bg-gray-100" id="openings">
       <section className="max-w-4xl mx-auto px-3">
         <div>
-          <h2 className='text-4xl mb-16 leading-snug font-semibold text-center text-transparent bg-gradient-to-r from-black to-green-500 bg-clip-text'>Current Job Openings</h2>
+          <h2 data-aos="fade-in" data-aos-duration="1500" className='text-4xl mb-16 leading-snug font-semibold text-center text-transparent bg-gradient-to-r from-black to-green-500 bg-clip-text'>Current Job Openings</h2>
           <div>
             <div className="flex flex-col gap-8">
               <div className="flex items-center justify-between bg-white p-8 rounded-lg shadow-md hover:shadow-green-400">

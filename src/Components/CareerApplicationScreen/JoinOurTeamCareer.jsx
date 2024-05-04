@@ -1,26 +1,49 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const JoinOurTeamCareer = () => {
   const [applicationData, setApplicationData] = useState({
     fullname: '',
     email: '',
-    message: ''
+    message: '',
+    resume: null
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setApplicationData((prev) => {
-      return {
-        ...prev,
-        [name] : value
-      }
-    })
+    const { name, value, files } = e.target
+    if(name === 'resume') {
+      setApplicationData((prev) => {
+        return {
+          ...prev,
+          [name] : files[0]
+        }
+      })
+    } else {
+      setApplicationData((prev) => {
+        return {
+          ...prev,
+          [name] : value
+        }
+      })
+    }
   } 
 
-  const handleFormSubmission = (e) => {
+  const handleFormSubmission = async (e) => {
     e.preventDefault()
 
-    console.log(applicationData);
+    try {
+      const res = await fetch('https://uncovered-harmless-angelfish.glitch.me/application', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      body: JSON.stringify(applicationData)
+      })
+      const data = await res.json()
+      toast.success(data.message)
+    } catch (error) {
+      toast.error(data.message || error)
+    }
   }
   
   return (
@@ -32,7 +55,7 @@ const JoinOurTeamCareer = () => {
             <input type="text" name="fullname" value={applicationData.fullname} onChange={handleChange} placeholder="Full name" className="rounded-md p-2 bg-green-50 text-sm" />
             <input type="email" name="email" value={applicationData.email} onChange={handleChange} placeholder="Email" className="rounded-md p-2 bg-green-50 text-sm"/>
             <textarea name="message" value={applicationData.message} onChange={handleChange} rows="4" placeholder="Write to us" className="rounded-md p-2 bg-green-50 text-sm" />
-            <input type="file" name="resume" placeholder="Resume (Optional)" className="rounded-md p-2 bg-green-50 text-sm" />
+            <input type="file" name="resume" onChange={handleChange} placeholder="Resume (Optional)" className="rounded-md p-2 bg-green-50 text-sm" />
             <p className=" text-xs text-center">
               By filling in this form you agree to the processing of your personal data by Exitek. 
               Provided data is processed for recruitment purposes. You can withdraw your 
