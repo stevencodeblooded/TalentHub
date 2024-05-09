@@ -8,6 +8,10 @@ import Contact from "./Container/Contact"
 import NotFoundPage from "./Container/NotFoundPage"
 import Signup from "./Container/Signup"
 import Login from "./Container/Login"
+import { Provider } from "react-redux"
+import { store } from "./Components/redux/store"
+import PostJob from "./Container/PostJob"
+import Account from "./Container/Account"
 
 const App = () => {
   const router = createBrowserRouter(
@@ -20,14 +24,18 @@ const App = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
+        <Route path="post" element={<PostJob />} />
+        <Route path="account" element={<Account />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     )
   )
   return (
-    <RouterProvider
-      router={router} 
-    />
+    <Provider store={store}>
+      <RouterProvider
+        router={router} 
+      />
+    </Provider>
   )
 }
 

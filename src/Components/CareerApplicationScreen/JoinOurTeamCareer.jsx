@@ -67,10 +67,10 @@ const JoinOurTeamCareer = () => {
         <div className="max-w-xl mx-auto">
           <h1 className='text-4xl leading-snug text-center mb-6 font-semibold text-transparent bg-gradient-to-r from-green-500 to-black bg-clip-text'>Join the team</h1>
           <form onSubmit={handleFormSubmission} className="flex flex-col gap-3">
-            <input type="text" name="fullname" value={applicationData.fullname} onChange={handleChange} placeholder="Full name" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
-            <input type="email" name="email" value={applicationData.email} onChange={handleChange} placeholder="Email" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm"/>
-            <textarea name="message" value={applicationData.message} onChange={handleChange} rows="4" placeholder="Write to us" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
-            <input type="file" name="resume" onChange={handleChange} placeholder="Resume (Optional)" className="rounded-md p-2 bg-green-50 text-sm" />
+            <input type="text" name="fullname" required value={applicationData.fullname} onChange={handleChange} placeholder="Full name" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
+            <input type="email" name="email" required value={applicationData.email} onChange={handleChange} placeholder="Email" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm"/>
+            <textarea name="message" required value={applicationData.message} onChange={handleChange} rows="4" placeholder="Write to us" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
+            <input type="file" name="resume" required onChange={handleChange} placeholder="Resume (Optional)" className="rounded-md p-2 bg-green-50 text-sm" />
             <p className=" text-xs text-center">
               By filling in this form you agree to the processing of your personal data by Exitek. 
               Provided data is processed for recruitment purposes. You can withdraw your 

@@ -62,9 +62,9 @@ const LetsTalk = () => {
             </div>
             <div className="w-full md:w-1/2 md:px-0">
               <form onSubmit={handleFormSubmission} className="flex flex-col gap-3">
-                <input type="text" name="name" value={contactFormData.name} onChange={handleChange} placeholder="Name" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
-                <input type="email" name="email" value={contactFormData.email} onChange={handleChange} placeholder="Email" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
-                <textarea name="message" value={contactFormData.message} onChange={handleChange} rows="4" placeholder="Talk to us..." className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
+                <input type="text" name="name" required value={contactFormData.name} onChange={handleChange} placeholder="Name" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
+                <input type="email" name="email" required value={contactFormData.email} onChange={handleChange} placeholder="Email" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
+                <textarea name="message" required value={contactFormData.message} onChange={handleChange} rows="4" placeholder="Talk to us..." className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
                 <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-fit px-8 text-white font-semibold text-sm mx-auto">Send Your Message <FontAwesomeIcon icon={faPaperPlane} /></button>
               </form>
             </div>
