@@ -30,10 +30,10 @@ const OpenPositions = () => {
           <div>
             <div className="flex flex-col gap-8">
               {
-                jobs?.data.map(job => (
+                jobs?.data?.map(job => (
                   <div key={job._id} className="flex items-center justify-between bg-white p-8 rounded-lg shadow-md hover:shadow-green-400">
                     <div>
-                      <h2 className="text-lg font-semibold mb-2">{ job.title}</h2>
+                      <h2 className="text-lg font-semibold mb-2">{job.title}</h2>
                       <div className="flex items-center gap-3 text-sm">
                         <p className="flex items-center gap-1"><FontAwesomeIcon icon={faLocationDot} className="text-green-500"/>100% remote</p>
                         <p className="flex items-center gap-1"><FontAwesomeIcon icon={faClock} className="text-green-500" />Full-time</p>

@@ -27,7 +27,7 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        dispatch(signinStart)
+        dispatch(signinStart())
         try {
           const res = await fetch('http://localhost:5000/api/users/login', {
             method: 'POST',

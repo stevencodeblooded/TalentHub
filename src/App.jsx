@@ -12,6 +12,7 @@ import { Provider } from "react-redux"
 import { store } from "./Components/redux/store"
 import PostJob from "./Container/PostJob"
 import Account from "./Container/Account"
+import ProtectedRoutes from "./Shared/ProtectedRoutes"
 
 const App = () => {
   const router = createBrowserRouter(
@@ -24,8 +25,10 @@ const App = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
-        <Route path="post" element={<PostJob />} />
-        <Route path="account" element={<Account />} />
+        <Route element={<ProtectedRoutes />} >
+          <Route path="post" element={<PostJob />} />
+          <Route path="account" element={<Account />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     )

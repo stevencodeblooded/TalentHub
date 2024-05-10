@@ -57,7 +57,7 @@ const JoinOurTeamCareer = () => {
         toast.error(err.message)
       }
     } catch (error) {
-      console.log(error)
+      toast.error(error)
     }
   }
   

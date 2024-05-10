@@ -16,7 +16,6 @@ const JobDescription = () => {
   }, [])
 
   const job = jobDesc?.data
-  console.log(job)
 
   return (
     <div>
