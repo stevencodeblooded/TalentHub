@@ -1,7 +1,14 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { applyJobFailure, applyJobStart, applyJobSuccess } from "../redux/authSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { ClipLoader } from "react-spinners";
 
 const JoinOurTeamCareer = () => {
+  const dispatch = useDispatch()
+  const { applyLoading } = useSelector(state => state.user)
   const [applicationData, setApplicationData] = useState({
     fullname: '',
     email: '',
@@ -37,6 +44,7 @@ const JoinOurTeamCareer = () => {
     formData.append('message', applicationData.message);
     formData.append('resume', applicationData.resume);
 
+    dispatch(applyJobStart())
     try {
       const res = await fetch('http://localhost:5000/api/users/application', {
       method: 'POST',
@@ -46,6 +54,7 @@ const JoinOurTeamCareer = () => {
       if (res.ok) {
         const data = await res.json()
         toast.success(data.message)
+        dispatch(applyJobSuccess(data.message))
         setApplicationData({
           fullname: '',
           email: '',
@@ -54,10 +63,12 @@ const JoinOurTeamCareer = () => {
         })
       } else {
         const err = await res.json()
+        dispatch(applyJobFailure(err.message))
         toast.error(err.message)
       }
     } catch (error) {
       toast.error(error)
+      dispatch(applyJobFailure(error))
     }
   }
   
@@ -70,14 +81,14 @@ const JoinOurTeamCareer = () => {
             <input type="text" name="fullname" required value={applicationData.fullname} onChange={handleChange} placeholder="Full name" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
             <input type="email" name="email" required value={applicationData.email} onChange={handleChange} placeholder="Email" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm"/>
             <textarea name="message" required value={applicationData.message} onChange={handleChange} rows="4" placeholder="Write to us" className="rounded-md p-2 focus:outline-none bg-green-50 text-sm" />
-            <input type="file" name="resume" required onChange={handleChange} placeholder="Resume (Optional)" className="rounded-md p-2 bg-green-50 text-sm" />
+            <input type="file" name="resume" required onChange={handleChange} placeholder="Resume" className="rounded-md p-2 bg-green-50 text-sm" />
             <p className=" text-xs text-center">
               By filling in this form you agree to the processing of your personal data by Exitek. 
               Provided data is processed for recruitment purposes. You can withdraw your 
               consent to the processing of your personal data at any time. For more information on your rights 
               and data processing please read our Privacy Policy.
             </p>
-            <button className="mt-9 bg-green-500 hover:bg-green-600 transition-all w-fit mx-auto py-3 px-9 rounded-3xl text-sm font-semibold text-white">Apply Now</button>
+            <button disabled={applyLoading} className={`${applyLoading && 'cursor-not-allowed'} mt-9 bg-green-500 hover:bg-green-600 transition-all w-fit mx-auto py-3 px-9 rounded-3xl text-sm font-semibold flex items-center gap-3 text-white`}>{ applyLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Apply Now <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
           </form>
         </div>
       </section>

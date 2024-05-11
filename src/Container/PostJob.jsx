@@ -1,17 +1,22 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { postJobFailure, postJobStart, postJobSuccess } from "../Components/redux/authSlice";
 
 const PostJob = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { postLoading } = useSelector(state => state.user)
     const [formData, setFormData] = useState({
         title: '',
         company_info: '',
         job_description: [],
-        requirements: '',
-        benefits: '',
+        requirements: [],
+        benefits: [],
         location: '',
         salary: '',
     });
@@ -29,7 +34,6 @@ const PostJob = () => {
     const handleJobListings = e => {
         const {name, value} = e.target;
         const items = value.split('\n').map(item => item.trim())
-
         setFormData(prevData => ({
           ...prevData,
           [name]: [items],
@@ -38,8 +42,8 @@ const PostJob = () => {
 
     const handleFormSubmission = async (e) => {
         e.preventDefault()
-        console.log(formData);
 
+        dispatch(postJobStart())
         const res = await fetch('http://localhost:5000/api/users/jd', {
             method: 'POST',
             headers: {
@@ -50,13 +54,14 @@ const PostJob = () => {
 
         if (res.ok) {
             const data = await res.json()
-            console.log(data);
             const id = data?.job?._id
+            dispatch(postJobSuccess(data.message))
             navigate(`/careers/${id}`)
             toast.success(data.message)
         } else {
             const data = await res.json()
             toast.error(data.message)
+            dispatch(postJobFailure(data.message))
         }
     }
     
@@ -88,7 +93,7 @@ const PostJob = () => {
                 <label htmlFor="salary" className="text-sm font-semibold">Salary:</label>
                 <input type="text" id="salary" placeholder="Enter the monthly gross salary for the job" name="salary" value={formData.salary} onChange={handleChange} required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
 
-                <button type="submit" className="flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-fit px-8 text-white font-semibold text-sm mx-auto">Post Your Job <FontAwesomeIcon icon={faPaperPlane} /></button>
+                <button disabled={postLoading} type="submit" className={`${postLoading && 'cursor-not-allowed'} flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-fit px-8 text-white font-semibold text-sm mx-auto`}>{ postLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Post Your Job <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
             </form>
         </section>
     </div>

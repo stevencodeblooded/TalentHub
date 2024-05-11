@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signinStart, signinSuccess, signinFailure } from "../redux/authSlice";
+import { ClipLoader } from "react-spinners";
 
 const LoginForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { loading } = useSelector(state => state.user)
     const [loginFormData, setLoginFormData] = useState({
         email: '',
         password: ''
@@ -59,7 +61,7 @@ const LoginForm = () => {
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <input type="email" required name="email" value={loginFormData.email} onChange={handleChange} placeholder="Email" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
               <input type="password" required name="password" placeholder="Password" value={loginFormData.password} onChange={handleChange} className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
-              <button type="submit" className="flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl px-8 text-white font-semibold text-sm ">Login <FontAwesomeIcon icon={faPaperPlane} /></button>
+              <button disabled={loading} type="submit" className={`${loading && 'cursor-not-allowed'} flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl px-8 text-white font-semibold text-sm `}>{ loading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Login <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
               <p className="font-semibold text-xs text-center my-8">Don't have an account? No worries <span className="text-green-500 hover:border-b pb-1 border-green-600 hover:text-green-600 transition-all"><Link to={'/signup'}>Signup</Link></span></p>
           </form>
         </div>

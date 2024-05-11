@@ -1,11 +1,18 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { signupStart, signupSuccess, signupFailure } from "../redux/authSlice";
+import { ClipLoader } from "react-spinners";
 
 const SignupForm = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { signupLoading } = useSelector(state => state.user)
+  console.log(signupLoading);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,6 +32,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    dispatch(signupStart())
     try {
       const res = await fetch('http://localhost:5000/api/users', {
         method: 'POST',
@@ -38,12 +46,15 @@ const SignupForm = () => {
         const data = await res.json()
         navigate('/login')
         toast.success(data.message)
+        dispatch(signupSuccess(data.message))
       } else {
         const error = await res.json()
         toast.error(error.message)
+        dispatch(signupFailure(error.message))
       }
     } catch (error) {
       toast.error(data.message || error)
+      dispatch(signupFailure(error))
     }
   }
   
@@ -56,7 +67,7 @@ const SignupForm = () => {
               <input type="text" required name="name" placeholder="Name" value={formData.name} onChange={handleChange} className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
               <input type="email" required name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
               <input type="password" required name="password" placeholder="Password" value={formData.password} onChange={handleChange} className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
-              <button type="submit" className="flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl px-8 text-white font-semibold text-sm ">Signup <FontAwesomeIcon icon={faPaperPlane} /></button>
+              <button disabled={signupLoading} type="submit" className={`${signupLoading && 'cursor-not-allowed'} flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl px-8 text-white font-semibold text-sm`}>{ signupLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Signup <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
               <p className="font-semibold text-xs text-center my-8">Do you already have an account, <span className="text-green-500 hover:border-b pb-1 border-green-600 hover:text-green-600 transition-all"><Link to={'/login'}>Login</Link></span></p>
           </form>
         </div>

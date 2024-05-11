@@ -1,9 +1,14 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
+import { letsChatStart, letsChatSuccess, letsChatFailure } from '../redux/authSlice'
+import { ClipLoader } from "react-spinners";
 
 const LetsTalk = () => {
+  const dispatch = useDispatch()
+  const { chatLoading } = useSelector(state => state.user)
   const [contactFormData, setContactFormData] = useState({
     name: '',
     email: '',
@@ -23,6 +28,7 @@ const LetsTalk = () => {
   const handleFormSubmission = async (e) => {
     e.preventDefault()
 
+    dispatch(letsChatStart())
     try {
       const res = await fetch('http://localhost:5000/api/users/contact', {
         method: 'POST',
@@ -35,6 +41,7 @@ const LetsTalk = () => {
       if(res.ok) {
         const data = await res.json()
         toast.success(data.message)
+        dispatch(letsChatSuccess(data.message))
         setContactFormData({
           name: '',
           email: '',
@@ -42,9 +49,11 @@ const LetsTalk = () => {
         })
       } else {
         const err = await res.json()
+        dispatch(letsChatFailure(err.message))
         toast.error(err.message)
       }
     } catch (error) {
+      dispatch(letsChatFailure(error))
       console.log(error);
     }
 
@@ -65,7 +74,7 @@ const LetsTalk = () => {
                 <input type="text" name="name" required value={contactFormData.name} onChange={handleChange} placeholder="Name" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
                 <input type="email" name="email" required value={contactFormData.email} onChange={handleChange} placeholder="Email" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
                 <textarea name="message" required value={contactFormData.message} onChange={handleChange} rows="4" placeholder="Talk to us..." className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
-                <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-fit px-8 text-white font-semibold text-sm mx-auto">Send Your Message <FontAwesomeIcon icon={faPaperPlane} /></button>
+                <button disabled={chatLoading} className={`${chatLoading && 'cursor-not-allowed'} flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-fit px-8 text-white font-semibold text-sm mx-auto`}>{ chatLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Send Your Message <FontAwesomeIcon icon={faPaperPlane} /></span>}</button>
               </form>
             </div>
           </div>
