@@ -30,7 +30,7 @@ const LetsTalk = () => {
 
     dispatch(letsChatStart())
     try {
-      const res = await fetch('http://localhost:5000/api/users/contact', {
+      const res = await fetch(`${import.meta.env.VITE_DB_URL}/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const LetsTalk = () => {
       }
     } catch (error) {
       dispatch(letsChatFailure(error))
-      console.log(error);
+      toast.error(error);
     }
 
   }

@@ -7,7 +7,7 @@ const JobDescription = () => {
 
   useEffect(() => {
     const getJobDesc = async () => {
-      const res = await fetch(`http://localhost:5000/api/users/description/${id}`)
+      const res = await fetch(`${import.meta.env.VITE_DB_URL}/description/${id}`)
       const data = await res.json()
       setJobDesc(data)
     }

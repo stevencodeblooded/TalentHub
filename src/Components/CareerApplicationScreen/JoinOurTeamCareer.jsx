@@ -46,7 +46,7 @@ const JoinOurTeamCareer = () => {
 
     dispatch(applyJobStart())
     try {
-      const res = await fetch('http://localhost:5000/api/users/application', {
+      const res = await fetch(`${import.meta.env.VITE_DB_URL}/application`, {
       method: 'POST',
       body: formData
       })

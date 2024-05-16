@@ -11,7 +11,6 @@ const SignupForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { signupLoading } = useSelector(state => state.user)
-  console.log(signupLoading);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -34,7 +33,7 @@ const SignupForm = () => {
 
     dispatch(signupStart())
     try {
-      const res = await fetch('http://localhost:5000/api/users', {
+      const res = await fetch(`${import.meta.env.VITE_DB_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -8,7 +8,7 @@ const OpenPositions = () => {
   
   useEffect(() => {
     const getAllJobs = async () => {
-      const res = await fetch(`http://localhost:5000/api/users/jds`)
+      const res = await fetch(`${import.meta.env.VITE_DB_URL}/jds`)
       const data = await res.json()
       setJobs(data)
     }

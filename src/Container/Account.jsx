@@ -28,7 +28,7 @@ const Account = () => {
         e.preventDefault()
 
         dispatch(updateUserStart())
-        const res = await fetch(`http://localhost:5000/api/users/${currentUser?._id}`, {
+        const res = await fetch(`${import.meta.env.VITE_DB_URL}/${currentUser?._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

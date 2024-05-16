@@ -44,7 +44,7 @@ const PostJob = () => {
         e.preventDefault()
 
         dispatch(postJobStart())
-        const res = await fetch('http://localhost:5000/api/users/jd', {
+        const res = await fetch(`${import.meta.env.VITE_DB_URL}/jd`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
