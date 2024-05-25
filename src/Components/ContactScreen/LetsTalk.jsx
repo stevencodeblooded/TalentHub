@@ -74,7 +74,7 @@ const LetsTalk = () => {
                 <input type="text" name="name" required value={contactFormData.name} onChange={handleChange} placeholder="Name" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
                 <input type="email" name="email" required value={contactFormData.email} onChange={handleChange} placeholder="Email" className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
                 <textarea name="message" required value={contactFormData.message} onChange={handleChange} rows="4" placeholder="Talk to us..." className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
-                <button disabled={chatLoading} className={`${chatLoading && 'cursor-not-allowed'} flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-fit px-8 text-white font-semibold text-sm mx-auto`}>{ chatLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Send Your Message <FontAwesomeIcon icon={faPaperPlane} /></span>}</button>
+                <button disabled={chatLoading} className={`${chatLoading && 'cursor-not-allowed'} flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-full text-white font-semibold text-sm mx-auto`}>{ chatLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Send Your Message <FontAwesomeIcon icon={faPaperPlane} /></span>}</button>
               </form>
             </div>
           </div>

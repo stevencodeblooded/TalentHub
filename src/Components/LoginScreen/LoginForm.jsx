@@ -43,6 +43,7 @@ const LoginForm = () => {
             dispatch(signinSuccess(data.user))
             navigate('/')
             toast.success(data.message)
+            console.log(data.user);
           } else {
             const error = await res.json()
             toast.error(error.message)

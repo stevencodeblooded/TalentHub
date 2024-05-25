@@ -5,7 +5,7 @@ const ProtectedRoutes = () => {
     const { currentUser } = useSelector(state => state.user)
   return (
     <>
-        { currentUser ? <Outlet /> : <Navigate to={'/'} /> }
+        { currentUser ? <Outlet /> : <Navigate to={'/login'} /> }
     </>
   )
 }

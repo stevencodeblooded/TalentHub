@@ -88,7 +88,7 @@ const JoinOurTeamCareer = () => {
               consent to the processing of your personal data at any time. For more information on your rights 
               and data processing please read our Privacy Policy.
             </p>
-            <button disabled={applyLoading} className={`${applyLoading && 'cursor-not-allowed'} mt-9 bg-green-500 hover:bg-green-600 transition-all w-fit mx-auto py-3 px-9 rounded-3xl text-sm font-semibold flex items-center gap-3 text-white`}>{ applyLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Apply Now <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
+            <button disabled={applyLoading} className={`${applyLoading && 'cursor-not-allowed'} mt-9 bg-green-500 hover:bg-green-600 transition-all w-full text-center mx-auto py-3 rounded-3xl text-sm font-semibold flex items-center justify-center gap-3 text-white`}>{ applyLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Apply Now <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
           </form>
         </div>
       </section>
