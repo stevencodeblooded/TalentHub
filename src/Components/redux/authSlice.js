@@ -55,7 +55,7 @@ const userSlice = createSlice({
             state.chatLoading = true
         },
         letsChatSuccess: (state, action) => {
-            state.currentUser = action.payload
+            // state.currentUser = action.payload
             state.chatLoading = false,
             state.error = null
         },
@@ -67,7 +67,7 @@ const userSlice = createSlice({
             state.postLoading = true
         },
         postJobSuccess: (state, action) => {
-            state.currentUser = action.payload
+            // state.currentUser = action.payload
             state.postLoading = false,
             state.error = null
         },
@@ -79,7 +79,7 @@ const userSlice = createSlice({
             state.applyLoading = true
         },
         applyJobSuccess: (state, action) => {
-            state.currentUser = action.payload
+            // state.currentUser = action.payload
             state.applyLoading = false,
             state.error = null
         },
@@ -87,9 +87,20 @@ const userSlice = createSlice({
             state.error = action.payload
             state.applyLoading = false
         },
-
+        editJobStart: (state) => {
+            state.editLoading = true
+        },
+        editJobSuccess: (state, action) => {
+            // state.currentUser = action.payload
+            state.editLoading = false,
+            state.error = null
+        },
+        editJobFailure: (state, action) => {
+            state.error = action.payload
+            state.editLoading = false
+        },
     }
 })
 
-export const { logout, applyJobStart, applyJobFailure, applyJobSuccess,postJobFailure, letsChatStart, postJobStart, postJobSuccess, letsChatFailure, letsChatSuccess, signinStart, signinSuccess, signinFailure, signupStart, signupFailure, signupSuccess,updateUserStart, updateUserSuccess, updateUserFailure, logoutStart, logoutFailure, logoutSuccess  } = userSlice.actions
+export const { editJobStart, editJobSuccess, editJobFailure, logout, applyJobStart, applyJobFailure, applyJobSuccess,postJobFailure, letsChatStart, postJobStart, postJobSuccess, letsChatFailure, letsChatSuccess, signinStart, signinSuccess, signinFailure, signupStart, signupFailure, signupSuccess,updateUserStart, updateUserSuccess, updateUserFailure, logoutStart, logoutFailure, logoutSuccess  } = userSlice.actions
 export default userSlice.reducer

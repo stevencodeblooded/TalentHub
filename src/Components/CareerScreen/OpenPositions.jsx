@@ -35,7 +35,7 @@ const OpenPositions = () => {
                     <div>
                       <h2 className="text-lg font-semibold mb-2">{job.title}</h2>
                       <div className="flex items-center gap-3 text-sm">
-                        <p className="flex items-center gap-1"><FontAwesomeIcon icon={faLocationDot} className="text-green-500"/>100% remote</p>
+                        <p className="flex items-center gap-1"><FontAwesomeIcon icon={faLocationDot} className="text-green-500"/>{job.location}</p>
                         <p className="flex items-center gap-1"><FontAwesomeIcon icon={faClock} className="text-green-500" />Full-time</p>
                       </div>
                     </div>

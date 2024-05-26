@@ -11,7 +11,7 @@ const WhoWeAre = () => {
                     <div>
                       <FontAwesomeIcon icon={faUnlock} className="text-2xl mb-4 border p-3 rounded-full bg-green-500 text-white" />
                       <h2 className="text-xl font-semibold mb-2">Unlock Your Potential</h2>
-                      <p className="text-sm">
+                      <p className="text-xs">
                         At Talent Hub, we believe in empowering individuals to reach their full potential. 
                         Whether you're a seasoned professional or just starting your career journey, our platform 
                         provides the tools, resources, and opportunities you need to thrive. 
@@ -21,7 +21,7 @@ const WhoWeAre = () => {
                     <div>
                       <FontAwesomeIcon icon={faDice} className="text-2xl mb-4 border p-3 rounded-full bg-green-500 text-white" />
                       <h2 className="text-xl font-semibold mb-2">Bridging Talent and Opportunity</h2>
-                      <p className="text-sm">
+                      <p className="text-xs">
                         Talent Hub serves as the ultimate bridge between talented individuals and exciting 
                         career opportunities. Our platform connects top-tier talent with leading companies and 
                         recruiters, facilitating meaningful connections that drive success for both parties. 
@@ -30,7 +30,7 @@ const WhoWeAre = () => {
                     <div>
                       <FontAwesomeIcon icon={faGift} className="text-2xl mb-4 border p-3 rounded-full bg-green-500 text-white" />
                       <h2 className="text-xl font-semibold mb-2">Revolutionizing Talent Acquisition</h2>
-                      <p className="text-sm">
+                      <p className="text-xs">
                         At Talent Hub, we're revolutionizing the way talent is discovered, recruited, 
                         and cultivated. Through the power of cutting-edge AI technology and innovative 
                         features, we're streamlining the recruitment process, eliminating biases, and creating 

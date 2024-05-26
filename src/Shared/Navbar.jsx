@@ -45,7 +45,9 @@ const Navbar = () => {
                         {
                             currentUser ? (
                                 <li>
-                                    <img src={avatar} alt="avatar" className=" cursor-pointer w-14 h-14 rounded-full p-1 bg-green-500 hover:bg-green-600" />
+                                    <Link to={'/account'} onClick={() => setMobileLinks(false)}>
+                                        <img src={avatar} title={currentUser?.name} alt="avatar" className=" cursor-pointer w-14 h-14 rounded-full p-1 bg-green-500 hover:bg-green-600" />
+                                    </Link>
                                 </li>
                             ) : (
                                 <Link to={'/signup'}  className="bg-green-500 hover:bg-green-600 transition-all font-semibold py-3 w-5/6 text-center rounded-3xl mt-10" onClick={() => setMobileLinks(false)} >Join Us</Link>

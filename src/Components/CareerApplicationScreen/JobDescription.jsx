@@ -16,6 +16,7 @@ const JobDescription = () => {
   }, [])
 
   const job = jobDesc?.data
+  console.log(job?.location);
 
   return (
     <div>
@@ -32,10 +33,10 @@ const JobDescription = () => {
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-2">What will you do:</h3>
+            <h3 className="text-xl font-semibold mb-2 text-green-700 ">What will you do:</h3>
             <ul className="list-disc ml-7 space-y-2">
-              {job?.job_description.map((item) => (
-                item.map((item, ind) => (
+              {job?.job_description?.map((item) => (
+                item?.map((item, ind) => (
                   <li key={ind}>{item}</li>
                 ))
               ))}
@@ -48,10 +49,10 @@ const JobDescription = () => {
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-2">What you should have:</h3>
+            <h3 className="text-xl font-semibold mb-2 text-green-700 ">What you should have:</h3>
             <ul className=" list-disc ml-7 space-y-2">
-              {job?.requirements.map((item) => (
-                item.map((item, ind) => (
+              {job?.requirements?.map((item, ind) => (
+                item?.map((item, ind) => (
                   <li key={ind}>{item}</li>
                 ))
               ))}
@@ -68,10 +69,10 @@ const JobDescription = () => {
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-2">What we offer:</h3>
+            <h3 className="text-xl font-semibold mb-2 text-green-700 ">What we offer:</h3>
             <ul className=" list-disc ml-7 space-y-2">
-              {job?.benefits.map((item) => (
-                item.map((item, ind) => (
+              {job?.benefits?.map((item, ind) => (
+                item?.map((item, ind) => (
                   <li key={ind}>{item}</li>
                 ))
               ))}
@@ -88,15 +89,15 @@ const JobDescription = () => {
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-2">Location:</h3>
+            <h3 className="text-xl font-semibold mb-2 text-green-700 ">Location:</h3>
             <ul className=" list-disc ml-7 space-y-2">
               {/* remote */}
-              <li>This position is fully {job?.location}</li> 
+              <li>{job?.location === 'Remote' ? 'This position is fully remote' : `Location for the job is ${job?.location}`}</li> 
             </ul>
           </div>
           
           <div>
-            <h3 className="text-xl font-semibold mb-2">Salary:</h3>
+            <h3 className="text-xl font-semibold mb-2 text-green-700 ">Salary:</h3>
             <ul className=" list-disc ml-7 space-y-2">
               {/* <li>Monthly gross salary from $1000 to $4000.</li> */}
               <li>Monthly gross salary {job?.salary}</li>

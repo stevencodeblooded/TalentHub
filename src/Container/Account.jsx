@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateUserStart, updateUserFailure, updateUserSuccess, logout } from "../Components/redux/authSlice";
 import { ClipLoader } from "react-spinners";
+import { Link, NavLink } from "react-router-dom";
 
 const Account = () => {
     const dispatch = useDispatch()
@@ -54,8 +55,13 @@ const Account = () => {
     }
 
   return (
-    <div className="my-32">
-        <section className="max-w-2xl mx-auto px-3">
+    <div className="my-12">
+        <nav className="flex gap-8 max-w-6xl mx-auto px-3 text-sm font-semibold">
+            <NavLink to={'/account'} className={({isActive}) => isActive ? 'border-b-2 p-2 rounded-2xl text-green-500 border-green-500' : 'p-2 hover:text-green-500 transition-all'}>Account</NavLink>
+            <NavLink to={'/my-jobs'} className={({isActive}) => isActive ? 'border-b-2 p-2 rounded-2xl text-green-500 border-green-500' : 'p-2 hover:text-green-500 transition-all'}>My Jobs</NavLink>
+            <NavLink to={'/post'} className={({isActive}) => isActive ? 'border-b-2 p-2 rounded-2xl text-green-500 border-green-500' : 'p-2 hover:text-green-500 transition-all'}>Post Job</NavLink>
+        </nav>
+        <section className="max-w-2xl mx-auto px-3 my-20">
             <div>
                 <h2 data-aos="zoom-in" data-aos-duration="1500" className="text-transparent py-3 bg-gradient-to-r from-black to-green-500 bg-clip-text text-4xl text-center font-semibold mb-8 z-50">Update Your Profile</h2>
                 <form className="flex flex-col gap-3">

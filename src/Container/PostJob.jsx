@@ -10,13 +10,14 @@ import { postJobFailure, postJobStart, postJobSuccess } from "../Components/redu
 const PostJob = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { postLoading } = useSelector(state => state.user)
+    const { postLoading, currentUser } = useSelector(state => state.user)
     const [formData, setFormData] = useState({
+        userId: currentUser?._id,
         title: '',
         company_info: '',
-        job_description: [],
-        requirements: [],
-        benefits: [],
+        job_description: '',
+        requirements: '',
+        benefits: '',
         location: '',
         salary: '',
     });
@@ -91,9 +92,9 @@ const PostJob = () => {
                 <input type="text" id="location" placeholder="Enter the location or (Remote)" name="location" value={formData.location} onChange={handleChange} required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
 
                 <label htmlFor="salary" className="text-sm font-semibold">Salary:</label>
-                <input type="text" id="salary" placeholder="Enter the monthly gross salary for the job" name="salary" value={formData.salary} onChange={handleChange} required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
+                <input type="number" id="salary" placeholder="Enter the monthly gross salary for the job" name="salary" value={formData.salary} onChange={handleChange} required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
 
-                <button disabled={postLoading} type="submit" className={`${postLoading && 'cursor-not-allowed'} flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-fit px-8 text-white font-semibold text-sm mx-auto`}>{ postLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Post Your Job <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
+                <button disabled={postLoading} type="submit" className={`${postLoading && 'cursor-not-allowed'} flex items-center justify-center gap-2 mt-7 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-full text-white font-semibold text-sm mx-auto`}>{ postLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Post Your Job <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
             </form>
         </section>
     </div>
