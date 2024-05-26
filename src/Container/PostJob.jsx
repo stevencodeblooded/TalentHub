@@ -73,25 +73,25 @@ const PostJob = () => {
         </div>
         <section className="max-w-4xl mx-auto px-3 my-12">
             <form onSubmit={handleFormSubmission} className="flex flex-col gap-3">
-                <label htmlFor="title" className="text-sm font-semibold ">Title:</label>
+                <label htmlFor="title" className="text-lg text-green-700 font-semibold ">Title:</label>
                 <input type="text" name="title" id="title" placeholder="Job title or position" value={formData.title} onChange={handleChange} rows="4" required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md" />
 
-                <label htmlFor="company_info" className="text-sm font-semibold ">Brief info about the company:</label>
+                <label htmlFor="company_info" className="text-lg text-green-700 font-semibold ">Brief info about the company:</label>
                 <textarea id="company_info" placeholder="A brief introduction about the hiring company" name="company_info" value={formData.company_info} onChange={handleChange} rows="4" required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"></textarea>
 
-                <label htmlFor="job_description" className="text-sm font-semibold ">What will you do:</label>
+                <label htmlFor="job_description" className="text-lg text-green-700 font-semibold ">What will you do:</label>
                 <textarea id="job_description" name="job_description" placeholder="Enter each item on a new line" onChange={handleJobListings} rows="4" required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"></textarea>
 
-                <label htmlFor="requirements" className="text-sm font-semibold ">What you should have:</label>
+                <label htmlFor="requirements" className="text-lg text-green-700 font-semibold">What you should have:</label>
                 <textarea id="requirements" name="requirements" placeholder="Enter each item on a new line" onChange={handleJobListings} rows="8" required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"></textarea>
 
-                <label htmlFor="benefits" className="text-sm font-semibold ">What we offer:</label>
+                <label htmlFor="benefits" className="text-lg text-green-700 font-semibold ">What we offer:</label>
                 <textarea id="benefits" placeholder="Enter each item on a new line" name="benefits" rows="8" onChange={handleJobListings} required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"></textarea>
 
-                <label htmlFor="location" className="text-sm font-semibold ">Location:</label>
+                <label htmlFor="location" className="text-lg text-green-700 font-semibold ">Location:</label>
                 <input type="text" id="location" placeholder="Enter the location or (Remote)" name="location" value={formData.location} onChange={handleChange} required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
 
-                <label htmlFor="salary" className="text-sm font-semibold">Salary:</label>
+                <label htmlFor="salary" className="text-lg text-green-700 font-semibold">Salary:</label>
                 <input type="number" id="salary" placeholder="Enter the monthly gross salary for the job" name="salary" value={formData.salary} onChange={handleChange} required className="p-2 text-sm font-semibold border border-green-300 focus:outline-none rounded-md"/>
 
                 <button disabled={postLoading} type="submit" className={`${postLoading && 'cursor-not-allowed'} flex items-center justify-center gap-2 mt-7 bg-green-500 hover:bg-green-600 transition-all py-3 rounded-3xl w-full text-white font-semibold text-sm mx-auto`}>{ postLoading ? <ClipLoader color="#fff" size={'20px'} /> : <span>Post Your Job <FontAwesomeIcon icon={faPaperPlane} /></span> }</button>
