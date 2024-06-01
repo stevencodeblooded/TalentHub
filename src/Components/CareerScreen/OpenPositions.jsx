@@ -34,7 +34,7 @@ const OpenPositions = () => {
           <div>
             <div className="flex flex-col gap-8">
               { 
-                !jobs?.data ? <ClipLoader color="#fff" size={'80px'} />
+                !jobs?.data ? <ClipLoader color="#00FF00" size={'100px'} className="mx-auto" />
                  :
                 jobs?.data?.map(job => (
                   <div key={job._id} className="flex items-center justify-between bg-white p-8 rounded-lg shadow-md hover:shadow-green-400">
