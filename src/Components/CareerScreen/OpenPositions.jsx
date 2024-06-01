@@ -2,6 +2,7 @@ import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { ClipLoader } from "react-spinners"
 
 const OpenPositions = () => {
   const [jobs, setJobs] = useState();
@@ -22,6 +23,9 @@ const OpenPositions = () => {
         behavior: 'smooth'
     })
   }
+
+  console.log(jobs);
+
   return (
     <div className="py-20 bg-gray-100" id="openings">
       <section className="max-w-4xl mx-auto px-3">
@@ -29,7 +33,9 @@ const OpenPositions = () => {
           <h2 data-aos="fade-in" data-aos-duration="1500" className='text-4xl mb-16 leading-snug font-semibold text-center text-transparent bg-gradient-to-r from-black to-green-500 bg-clip-text'>Current Job Openings</h2>
           <div>
             <div className="flex flex-col gap-8">
-              {
+              { 
+                !jobs?.data ? <ClipLoader color="#fff" size={'80px'} />
+                 :
                 jobs?.data?.map(job => (
                   <div key={job._id} className="flex items-center justify-between bg-white p-8 rounded-lg shadow-md hover:shadow-green-400">
                     <div>
