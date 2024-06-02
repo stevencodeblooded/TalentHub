@@ -24,8 +24,6 @@ const OpenPositions = () => {
     })
   }
 
-  console.log(jobs);
-
   return (
     <div className="py-20 bg-gray-100" id="openings">
       <section className="max-w-4xl mx-auto px-3">
